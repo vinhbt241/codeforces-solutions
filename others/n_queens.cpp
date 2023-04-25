@@ -2,14 +2,17 @@
 
 using namespace std;
 
-int cols[4], diag_pos[6], diag_neg[6];
-int board[4][4];
+const int N = 5;
+const int D = 8;
 
-void search(int n, int y = 0) {
-  if(y == n) {
+int cols[N], diag_pos[D], diag_neg[D];
+int board[N][N];
+
+void search(int y = 0) {
+  if(y == N) {
     cout << "=SOLUTION=" << "\n";
-    for(int i = 0; i < 4; i++) {
-      for(int j = 0; j < 4; j++) {
+    for(int i = 0; i < N; i++) {
+      for(int j = 0; j < N; j++) {
         cout << board[i][j] << " ";
       }
       cout << "\n";
@@ -18,18 +21,17 @@ void search(int n, int y = 0) {
     return;
   }
 
-  for(int x = 0; x < n; x++) {
-    if(cols[x] || diag_pos[x + y] || diag_neg[x - y + n - 1]) continue;
-    cols[x] = diag_pos[x + y] = diag_neg[x - y + n - 1] = 1;
+  for(int x = 0; x < N; x++) {
+    if(cols[x] || diag_pos[x + y] || diag_neg[x - y + N - 1]) continue;
+    cols[x] = diag_pos[x + y] = diag_neg[x - y + N - 1] = 1;
     board[y][x] = 1;
-    search(n, y + 1);
+    search(y + 1);
     board[y][x] = 0;
-    cols[x] = diag_pos[x + y] = diag_neg[x - y + n - 1] = 0;
+    cols[x] = diag_pos[x + y] = diag_neg[x - y + N - 1] = 0;
   }
 }
 
 int main() {
-  search(4, 0);
-
+  search(0);
   return 0;
 }
