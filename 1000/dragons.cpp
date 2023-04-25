@@ -1,6 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+// https://codeforces.com/problemset/problem/230/A
+
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -10,21 +10,23 @@ int main() {
   int s, n;
   cin >> s >> n;
 
-  vector<int> d;
-
-  int ds, pr;
+  vector<pair<int, int>> dragons(n);
 
   for(int i = 0; i < n; i++) {
-    cin >> ds >> pr;
-    s += (pr - ds);
+    cin >> dragons[i].first >> dragons[i].second;
   }
 
-  if(s >= 0) {
-    cout << "YES";
-  } else {
-    cout << "NO";
+  sort(dragons.begin(), dragons.end());
+
+  for(pair<int, int> dragon : dragons) {
+    if(s <= dragon.first) {
+      cout << "NO\n";
+      return 0;
+    }
+    s += dragon.second;
   }
 
+  cout << "YES\n";
 
   return 0;
 }
